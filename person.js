@@ -4,7 +4,7 @@ class Person {
     this.x = x || 20;
     this.y = y || 100;
     this.speed = 3;
-    this.touching = false;
+    this.talk = 0;
     // all of these are meant to be colours
     this.hair = hair || color(92, 49, 46);
     this.eyes = eye || color(0);
@@ -76,27 +76,38 @@ class Person {
   // moves character up by one pixel
   up() {
     this.y -= this.speed;
+    scene.village();
+    this.makeRight();
   }
   
   // moves character down one pixel
   down(){
     this.y += this.speed;
+    scene.village();
+    this.makeRight();
   }
   
   // moves character left one pixel
   left() {
     this.x -= this.speed;
+    scene.village();
+    this.makeRight();
   }
   
   // moves character right one pixel
   right() {
     this.x += this.speed;
+    scene.village();
+    this.makeRight();
   }
   
   // checks if the person is in range of something
-  range(other, otherHeight, otherWidth) {
-    if (this.x > other.x && this.x < other.x + otherHeight && this.y > other.y && this.y < other.y + otherWidth) {
-     this.touching = true;
+  // I used my side scroller "hits" method as a reference
+  rangePerson(other) {
+    if (((this.x + 50) || this.x) >= other.x && this.x <= (other.x + 50) && ((this.y + 90) || this.y) >= (other.y - 10) && this.y <= (other.y + 90)) {
+     return true;
+   } else {
+     return false;
    }
  }
 }
