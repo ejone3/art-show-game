@@ -7,6 +7,10 @@ class TextBox{
     this.message = message;
   }
   
+  extraLine(message2) {
+    this.message2 = message2;
+  }
+  
   show() {
     fill(201, 48, 48);
     rect(this.x - 20, this.y - 20, this.width + 40, this.height + 40, 20);
@@ -16,5 +20,6 @@ class TextBox{
     textAlign(CENTER);
     fill(0);
     text(this.message, this.x + this.width/2, this.y + this.height/1.7);
+    text(this.message2, this.x + this.width/2, this.y + this.height/1.4);
   }
 }
