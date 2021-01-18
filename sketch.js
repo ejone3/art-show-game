@@ -9,14 +9,25 @@ function setup() {
 }
 
 function keyPressed() {
-  if (key === " " && ash.rangePerson(robin) && robin.talk === 0) {
+  // this is all of Robin's conversations
+  if (key === " " && ash.rangePerson(robin) && robin.talk === 3) {
+    scene.village();
+    ash.makeRight();
+  } else if (key === " " && robin.talk === 2) {
+    robinQuest1P2 = new TextBox("Can you get me some flowers for my")
+    robinQuest1P2.extraLine("mother?");
+    robinQuest1P2.show();
+    robin.talk++;
+  } else if (key === " " && robin.talk === 1) {
+    robinQuest1 = new TextBox("Can you help me out with something?");
+    robinQuest1.extraLine("");
+    robinQuest1.show();
+    robin.talk++;
+  } else if (key === " " && robin.talk === 0) {
     robinHello = new TextBox("Hello, my name is Robin.");
+    robinHello.extraLine("");
     robinHello.show();
     robin.talk++;
-    if (key === " " && robin.talk === 1) {
-      robinQuest1 = new TextBox("Can you help me out with something?");
-      robinQuest1.show();
-    }
   }
 }
 
