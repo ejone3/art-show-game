@@ -76,28 +76,24 @@ class Person {
   // moves character up by one pixel
   up() {
     this.y -= this.speed;
-    scene.village();
     this.makeRight();
   }
   
   // moves character down one pixel
   down(){
     this.y += this.speed;
-    scene.village();
     this.makeRight();
   }
   
   // moves character left one pixel
   left() {
     this.x -= this.speed;
-    scene.village();
     this.makeRight();
   }
   
   // moves character right one pixel
   right() {
     this.x += this.speed;
-    scene.village();
     this.makeRight();
   }
   
@@ -110,4 +106,20 @@ class Person {
      return false;
    }
  }
+  
+  rangeEdge(edgeX, edgeY){
+    if (this.x >= edgeX && this.x <= (edgeX + 500) && this.y >= (edgeY - 40)) {
+      return true
+    } else {
+      return false
+    }
+  }
+  
+  rangeObject(side1, side2, top, bottom) {
+    if ((this.x + 30) >= side1 && (this.x + 20) <= side2 && (this.y + 40) >= top && (this.y + 30) <= bottom) {
+      return true
+    } else {
+      return false
+    }
+  }
 }
