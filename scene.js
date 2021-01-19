@@ -60,4 +60,32 @@ class Scenes {
     //draws Robin
     robin.makeRight();
   }
+  
+  // this draws a flower
+  flower(x, y) {
+    // flower petals
+      fill(187, 127, 250);
+      ellipse(x - 5, y - 5, 15, 15);
+      ellipse(x + 5, y - 5, 15, 15);
+      ellipse(x - 5, y + 5, 15, 15);
+      ellipse(x + 5, y + 5, 15, 15);
+      // center of the flower
+      fill(237, 237, 116);
+      ellipse(x, y, 10, 10);
+  }
+  
+  // draws the fields outside the village
+  fields() {
+    // sets "this.current" to fields
+    this.current = "fields";
+    // draws the grass
+    background(104, 227, 64);
+
+    // this draws a flower patch
+    for (let i = 0; i < 200; i+=25) {
+      for (let j = 0; j < 100; j+=20) {
+        this.flower(i + 100, j + 450);
+      }
+    }
+  }
 }
