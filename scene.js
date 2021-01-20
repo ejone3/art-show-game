@@ -3,7 +3,7 @@ class Scenes {
     this.pxl = 50;
     this.current = "start";
   }
-  
+
   // draws the start screen
   start() {
     this.current = "start"
@@ -11,11 +11,11 @@ class Scenes {
     textSize(50);
     textAlign(CENTER);
     fill(255);
-    text("Ash's Quest", width/2, 150);
+    text("Ash's Quest", width / 2, 150);
     // draws the start button
     start.show();
   }
-  
+
   // draws the fountain for the village
   fountain() {
     // draws the foundation of the fountain
@@ -31,6 +31,19 @@ class Scenes {
     stroke(28, 111, 166);
     fill(38, 150, 224);
     rect(width / 2 - this.pxl, height / 2 - this.pxl, this.pxl * 2, this.pxl * 2);
+  }
+
+
+  // draws a 2x2 path
+  path(beginning) {
+    stroke(116, 122, 117);
+    strokeWeight(4);
+    fill(147, 153, 148);
+    for (let i = 0; i < 2; i++) {
+      for (let j = 0; j < 2; j++) {
+        rect(width/2 - this.pxl * i, beginning + this.pxl * j, this.pxl, this.pxl);
+      }
+    }
   }
 
   // draws the village, your starting area and main area
@@ -54,10 +67,45 @@ class Scenes {
       }
     }
 
+    // draws a path
+    this.path(500);
+
     // draws a fountain
     this.fountain();
 
     //draws Robin
     robin.makeRight();
+  }
+
+  // this draws a flower
+  flower(x, y) {
+    // flower petals
+    noStroke();
+    fill(187, 127, 250);
+    ellipse(x - 5, y - 5, 15, 15);
+    ellipse(x + 5, y - 5, 15, 15);
+    ellipse(x - 5, y + 5, 15, 15);
+    ellipse(x + 5, y + 5, 15, 15);
+    // center of the flower
+    fill(237, 237, 116);
+    ellipse(x, y, 10, 10);
+  }
+
+  // draws the fields outside the village
+  fields() {
+    // sets "this.current" to fields
+    this.current = "fields";
+    // draws the grass
+    background(104, 227, 64);
+    
+    // draws a path
+    this.path(0);
+
+    // this draws a flower patch
+    for (let i = 0; i < 200; i += 25) {
+      for (let j = 0; j < 100; j += 20) {
+        this.flower(i + 100, j + 450);
+      }
+    }
   }
 }
