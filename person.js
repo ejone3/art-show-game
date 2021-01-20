@@ -107,8 +107,16 @@ class Person {
    }
  }
   
-  rangeEdge(edgeX, edgeY){
+  rangeEdgeBottom(edgeX, edgeY){
     if (this.x >= edgeX && this.x <= (edgeX + 500) && this.y >= (edgeY - 40)) {
+      return true
+    } else {
+      return false
+    }
+  }
+  
+  rangeEdgeTop (edgeX, edgeY) {
+    if (this.x >= edgeX && this.x <= (edgeX + 500) && this.y <= (edgeY - 40)) {
       return true
     } else {
       return false
