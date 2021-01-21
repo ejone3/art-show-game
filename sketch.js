@@ -2,6 +2,7 @@
 
 var flower = false;
 var shovel = false;
+var robinQuests = false;
 
 function setup() {
   createCanvas(600, 600);
@@ -15,75 +16,112 @@ function keyPressed() {
   if (key === " ") {
     // this is all of Robin's conversations
     if (ash.rangePerson(robin)) {
-      if (robin.talk === 0) {
-        robinHello = new TextBox("Hello, my name is Robin.");
-        robinHello.extraLine("");
-        robinHello.show();
-        robin.talk++;
-      } else if (robin.talk === 1) {
-        robinQuest1 = new TextBox("Can you help me out with something?");
-        robinQuest1.extraLine("");
-        robinQuest1.show();
-        robin.talk++;
-      } else if (robin.talk === 2) {
-        robinQuest1P2 = new TextBox("Can you get me some flowers for my")
-        robinQuest1P2.extraLine("mother?");
-        robinQuest1P2.show();
-        robin.talk++;
-      } else if (robin.talk === 3) {
-        scene.village();
-        ash.makeRight();
-        robin.talk++;
-      } else if (robin.talk === 4 && flower) {
-        robinQuest1Complete = new TextBox("You did it! Thanks!");
-        robinQuest1Complete.extraLine("");
-        robinQuest1Complete.show();
-        robin.talk++;
-      } else if (robin.talk === 5) {
-        robinQuest2 = new TextBox("You did so well last time, can you help me");
-        robinQuest2.extraLine("again?");
-        robinQuest2.show();
-        robin.talk++;
-      } else if (robin.talk === 6) {
-        robinQuest2P2 = new TextBox("Here, take this shovel.");
-        robinQuest2P2.extraLine("");
-        robinQuest2P2.show();
-        shovel = true;
-        robin.talk++;
-      } else if (robin.talk === 7) {
-        robinQuest2P3 = new TextBox("There's a pile of rocks outside the village.");
-        robinQuest2P3.extraLine("");
-        robinQuest2P3.show();
-        robin.talk++;
-      } else if (robin.talk === 8) {
-        robinQuest2P4 = new TextBox("If you dig under them, you'll find water.");
-        robinQuest2P4.extraLine("");
-        robinQuest2P4.show();
-        robin.talk++;
-      } else if (robin.talk === 9) {
-        robinQuest2P5 = new TextBox("Can you please use the rocks to make a");
-        robinQuest2P5.extraLine("well?");
-        robinQuest2P5.show();
-        robin.talk++;
-      } else if (robin.talk === 10) {
-        robinQuest2P6 = new TextBox("It's for the village nearby. They don't have a")
-        robinQuest2P6.extraLine("clean water source.");
-        robinQuest2P6.show();
-        robin.talk++;
-      } else if (robin.talk === 11) {
-        scene.village();
-        ash.makeRight();
-        robin.talk++;
+      if (scene.current === "town") {
+        if (robin.talk === 0) {
+          robinHello = new TextBox("Hello, my name is Robin.");
+          robinHello.extraLine("");
+          robinHello.show();
+          robin.talk++;
+        } else if (robin.talk === 1) {
+          robinQuest1 = new TextBox("Can you help me out with something?");
+          robinQuest1.extraLine("");
+          robinQuest1.show();
+          robin.talk++;
+        } else if (robin.talk === 2) {
+          robinQuest1P2 = new TextBox("Can you get me some flowers for my")
+          robinQuest1P2.extraLine("mother?");
+          robinQuest1P2.show();
+          robin.talk++;
+        } else if (robin.talk === 3) {
+          scene.village();
+          ash.makeRight();
+          robin.talk++;
+        } else if (robin.talk === 4 && flower) {
+          robinQuest1Complete = new TextBox("You did it! Thanks!");
+          robinQuest1Complete.extraLine("");
+          robinQuest1Complete.show();
+          robin.talk++;
+        } else if (robin.talk === 5) {
+          scene.village();
+          ash.makeRight();
+          robin.talk++;
+        } else if (robin.talk === 6) {
+          robinQuest2 = new TextBox("You did so well last time, can you help me");
+          robinQuest2.extraLine("again?");
+          robinQuest2.show();
+          robin.talk++;
+        } else if (robin.talk === 7) {
+          robinQuest2P2 = new TextBox("Here, take this shovel.");
+          robinQuest2P2.extraLine("");
+          robinQuest2P2.show();
+          shovel = true;
+          robin.talk++;
+        } else if (robin.talk === 8) {
+          robinQuest2P3 = new TextBox("There's a pile of rocks outside the village.");
+          robinQuest2P3.extraLine("");
+          robinQuest2P3.show();
+          robin.talk++;
+        } else if (robin.talk === 9) {
+          robinQuest2P4 = new TextBox("If you dig under them, you'll find water.");
+          robinQuest2P4.extraLine("");
+          robinQuest2P4.show();
+          robin.talk++;
+        } else if (robin.talk === 10) {
+          robinQuest2P5 = new TextBox("Can you please use the rocks to make a");
+          robinQuest2P5.extraLine("well?");
+          robinQuest2P5.show();
+          robin.talk++;
+        } else if (robin.talk === 11) {
+          robinQuest2P6 = new TextBox("It's for the village nearby. They don't have a")
+          robinQuest2P6.extraLine("clean water source.");
+          robinQuest2P6.show();
+          robin.talk++;
+        } else if (robin.talk === 12) {
+          scene.village();
+          ash.makeRight();
+          robin.talk++;
+        } else if (robin.talk === 13 && scene.well) {
+          robinQuest2Complete = new TextBox("Wow!! You made a well!!!");
+          robinQuest2Complete.extraLine("");
+          robinQuest2Complete.show();
+          robin.talk++;
+        } else if (robin.talk === 14) {
+          robinQuest2CompleteP2 = new TextBox("Now the other village will have clean water!!");
+          robinQuest2CompleteP2.extraLine("");
+          robinQuest2CompleteP2.show();
+          robin.talk++;
+        } else if (robin.talk === 15) {
+          robinQuest2CompleteP3 = new TextBox("I bet they're really thankful. Without the well,");
+          robinQuest2CompleteP3.extraLine("they wouldn't have any water.");
+          robinQuest2CompleteP3.show();
+          robin.talk++;
+        } else if (robin.talk === 16) {
+          scene.village();
+          ash.makeRight();
+          robin.talk++;
+          robinQuests = true;
+        }
       }
     }
-    if (ash.rangeObject(100, 300, 450, 550) && scene.current === "fields") {
-      flower = true;
+    if (scene.current === "fields") {
+      if (ash.rangeObject(100, 300, 450, 550)) {
+        flower = true;
+        flowerAquired = new TextBox("You picked a flower");
+        flowerAquired.extraLine("");
+        flowerAquired.show();
+      }
+      if (shovel) {
+        if (ash.rangeObject(100, 150, 50, 100)) {
+          scene.well = true;
+          scene.fields();
+          ash.makeRight();
+        }
+      }
     }
   }
 }
 
 // I used my side scroller to help me figure out how to make scene changes work
-
 function mousePressed() {
   if (start.canClick && scene.current === "start") {
     scene.village();
@@ -135,5 +173,26 @@ function draw() {
       ash.y = 530;
       ash.makeRight();
     }
+  }
+
+  // this checks if all the quests are complete
+  if (robinQuests) {
+    background(142, 245, 175);
+    textAlign(CENTER);
+    textSize(30);
+    fill(255);
+    text("CONGRATS!! YOU FINISHED THE GAME!!", width / 2, 100);
+    textSize(13);
+    text("You've helped out the small village of Bayleay and the surrounding areas a lot.", width / 2, 300);
+    text("Everyone you helped is extremely grateful to you and hopes that you won't forget them.", width / 2, 320);
+    text("They told me to tell you that you're welcome back anytime!!", width / 2, 340);
+    text("Also, Ash was worried about doing this alone. So they were really happy when you came to help.", width / 2, 450);
+    text("Thank you for joining Ash in their adventure!!", width / 2, 470);
+    ash.x = 275;
+    ash.y = 150;
+    ash.makeRight();
+    robin.x = 215;
+    robin.y = 160;
+    robin.makeRight();
   }
 }
