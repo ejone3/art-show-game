@@ -1,7 +1,9 @@
 class Scenes {
   constructor() {
     this.pxl = 50;
+    this.smlPxl = 10;
     this.current = "start";
+    this.well = false;
   }
 
   // draws the start screen
@@ -90,7 +92,35 @@ class Scenes {
     fill(237, 237, 116);
     ellipse(x, y, 10, 10);
   }
-
+  
+  // this draws a pile of rocks
+  rocks() {
+    stroke(116, 122, 117);
+    strokeWeight(2);
+    fill(147, 153, 148);
+    for (let i = 0; i < 5; i++) {
+      for (let j = 0; j < 5; j++) {
+        ellipse(this.smlPxl * i + 105, this.smlPxl * j + 55, this.smlPxl, this.smlPxl);
+      }
+    }
+    ellipse(110, 60, this.smlPxl * 1.5, this.smlPxl);
+    ellipse(120, 90, this.smlPxl * 1.5, this.smlPxl);
+    ellipse(125, 75, this.smlPxl * 1.5, this.smlPxl);
+    ellipse(137, 65, this.smlPxl * 1.5, this.smlPxl);
+    ellipse(115, 70, this.smlPxl * 1.5, this.smlPxl);
+    ellipse(138, 87, this.smlPxl * 1.5, this.smlPxl);
+  }
+  
+  // this draws a well
+  makeWell() {
+    stroke(116, 122, 117);
+    strokeWeight(2);
+    fill(147, 153, 148);
+    ellipse(125, 75, this.pxl, this.pxl);
+    fill(0, 0, 255);
+    ellipse(125, 75, this.pxl - 10, this.pxl - 10);
+  }
+  
   // draws the fields outside the village
   fields() {
     // sets "this.current" to fields
@@ -100,6 +130,13 @@ class Scenes {
     
     // draws a path
     this.path(0);
+    
+    // draws a pile of rocks or a well
+    if (this.well) {
+      this.makeWell();
+    } else {
+      this.rocks();
+    }
 
     // this draws a flower patch
     for (let i = 0; i < 200; i += 25) {
