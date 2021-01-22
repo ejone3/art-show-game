@@ -1,10 +1,11 @@
 class Person {
   constructor(x, y, hair, eye, skin, top, bottom) {
     this.pxl = 10;
-    this.x = x || 20;
+    this.x = x || 90;
     this.y = y || 100;
     this.speed = 3;
     this.talk = 0;
+    this.map = false;
     // all of these are meant to be colours
     this.hair = hair || color(92, 49, 46);
     this.eyes = eye || color(0);
@@ -71,6 +72,11 @@ class Person {
     fill(this.eyes);
     rect(this.x + this.pxl * 3.5, this.y + this.pxl * 1.5, this.pxl/2, this. pxl);
     rect(this.x + this.pxl * 4.3, this.y + this.pxl * 1.5, this.pxl/2, this. pxl);
+    
+    // draws the map button if Ash has the map
+    if (this.map) {
+      hasMap.show();
+    }
   }
   
   // moves character up by one pixel
@@ -117,6 +123,22 @@ class Person {
   
   rangeEdgeTop (edgeX, edgeY) {
     if (this.x >= edgeX && this.x <= (edgeX + 500) && this.y <= (edgeY - 40)) {
+      return true
+    } else {
+      return false
+    }
+  }
+  
+  rangeEdgeRight (edgeX, edgeY) {
+    if ((this.x + 25)  >= edgeX && this.y >= edgeY && this.y <= (edgeY + 500)) {
+      return true  
+    } else {
+      return false
+    }
+  }
+  
+  rangeEdgeLeft (edgeX, edgeY) {
+    if (this.x <= (edgeX - 25) && this.y >= edgeY && this.y <= (edgeY + 500)) {
       return true
     } else {
       return false

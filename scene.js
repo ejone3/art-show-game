@@ -37,13 +37,13 @@ class Scenes {
 
 
   // draws a 2x2 path
-  path(beginning) {
+  path(x, y) {
     stroke(116, 122, 117);
     strokeWeight(4);
     fill(147, 153, 148);
     for (let i = 0; i < 2; i++) {
       for (let j = 0; j < 2; j++) {
-        rect(width/2 - this.pxl * i, beginning + this.pxl * j, this.pxl, this.pxl);
+        rect(x - this.pxl * i, y + this.pxl * j, this.pxl, this.pxl);
       }
     }
   }
@@ -69,8 +69,9 @@ class Scenes {
       }
     }
 
-    // draws a path
-    this.path(500);
+    // draws paths
+    this.path(width/2, 500);
+    this.path(550, 250);
 
     // draws a fountain
     this.fountain();
@@ -129,7 +130,7 @@ class Scenes {
     background(104, 227, 64);
     
     // draws a path
-    this.path(0);
+    this.path(width/2, 0);
     
     // draws a pile of rocks or a well
     if (this.well) {
@@ -146,6 +147,64 @@ class Scenes {
     }
   }
   
+  // this draws a 3 block long vertical shelf
+  vShelf(x, y) {
+    noStroke();
+    for (let i = 0; i < 3; i++) {
+      fill(51, 32, 0);
+      rect(x, y + this.pxl * i, this.pxl, this.pxl);
+    }
+  }
+  
+  // this draws a 3 block long horizontal shelf
+  hShelf(x, y) {
+    noStroke();
+    for (let i = 0; i < 3; i++) {
+      rect(x + this.pxl * i, y, this.pxl, this.pxl);
+    }
+  }
+  
+  // this draws a welcome mat
+  mat(x, y) {
+    stroke(153, 34, 2);
+    strokeWeight(4);
+    fill(181, 41, 2)
+    rect(x, y, this.pxl, this.pxl * 2, 2);
+  }
+  
+  // this draws a shop
+  shop() {
+    // this sets the current scene to "shop"
+    this.current = "shop";
+    
+    // this draws the floor
+    background(148, 82, 52);
+    
+    //this draws the shelves
+    for (let i = 0; i < 4; i++) {
+      this.vShelf(50 + this.pxl * 3 * i, 400);
+    }
+    
+    for (let i = 0; i < 2; i++) {
+      this.hShelf(25 + this.pxl * 4 * i, 0);
+    }
+    
+    // this draws the welcome mat
+    this.mat(2, height/2 - this.pxl);
+    
+    // this draws a counter
+    stroke(191, 179, 157);
+    strokeWeight(4);
+    for (let i = 0; i < 4; i++) {
+      fill(204, 191, 169);
+      rect(400 + this.pxl * i, 125, this.pxl, this.pxl);
+    }
+    
+    // this makes Janine
+    janine.makeRight();
+  }
+  
+  // this draws a win screen
   win() {
     background(142, 245, 175);
     textAlign(CENTER);
@@ -164,5 +223,8 @@ class Scenes {
     robin.x = 215;
     robin.y = 160;
     robin.makeRight();
+    janine.x = 335;
+    janine.y = 160;
+    janine.makeRight();
   }
 }
