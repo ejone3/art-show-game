@@ -1,15 +1,16 @@
 class Button {
-  constructor(x, y, width, height, message) {
+  constructor(x, y, width, height, message, colour) {
     this.x = x;
     this.y = y;
     this.width = width;
     this.height = height;
     this.message = message;
+    this.colour = colour || color(255);
   }
   
   show() {
     noStroke();
-    fill(192, 250, 217);
+    fill(this.colour);
     rect(this.x, this.y, this.width, this.height, 10);
     textAlign(CENTER);
     textSize(15);
