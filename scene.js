@@ -145,4 +145,24 @@ class Scenes {
       }
     }
   }
+  
+  win() {
+    background(142, 245, 175);
+    textAlign(CENTER);
+    textSize(30);
+    fill(255);
+    text("CONGRATS!! YOU FINISHED THE GAME!!", width / 2, 100);
+    textSize(13);
+    text("You've helped out the small village of Bayleay and the surrounding areas a lot.", width / 2, 300);
+    text("Everyone you helped is extremely grateful to you and hopes that you won't forget them.", width / 2, 320);
+    text("They told me to tell you that you're welcome back anytime!!", width / 2, 340);
+    text("Also, Ash was worried about doing this alone. So they were really happy when you came to help.", width / 2, 450);
+    text("Thank you for joining Ash in their adventure!!", width / 2, 470);
+    ash.x = 275;
+    ash.y = 150;
+    ash.makeRight();
+    robin.x = 215;
+    robin.y = 160;
+    robin.makeRight();
+  }
 }
