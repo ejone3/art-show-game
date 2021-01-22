@@ -2,14 +2,18 @@
 
 var flower = false;
 var shovel = false;
+var janineSearch = false;
+var ring = false;
 var robinQuests = false;
 
 function setup() {
   createCanvas(600, 600);
   scene = new Scenes();
-  start = new Button(250, 200, 100, 50, "Click to start");
+  start = new Button(250, 200, 100, 50, "Click to start", color(192, 250, 217));
+  hasMap = new Button(10, 10, 50, 50, "MAP", color(241, 255, 171));
   ash = new Person();
   robin = new Person(350, 310, color(0), color(7, 112, 65), color(255, 218, 166), color(102, 30, 45), color(49, 56, 110));
+  janine = new Person(510, 30, color(140, 214, 101), color(86, 116, 199), color(245, 230, 171), color(102, 79, 125), color(44, 54, 26));
 }
 
 function keyPressed() {
@@ -105,10 +109,17 @@ function keyPressed() {
     }
     if (scene.current === "fields") {
       if (ash.rangeObject(100, 300, 450, 550)) {
-        flower = true;
-        flowerAquired = new TextBox("You picked a flower");
-        flowerAquired.extraLine("");
-        flowerAquired.show();
+        if (janineSearch && !ring) {
+          ring = true;
+          ringAquired = new TextBox("You found Janine's ring!");
+          ringAquired.extraLine("");
+          ringAquired.show();
+        } else {
+          flower = true;
+          flowerAquired = new TextBox("You picked a flower");
+          flowerAquired.extraLine("");
+          flowerAquired.show();
+        }
       }
       if (shovel) {
         if (ash.rangeObject(100, 150, 50, 100)) {
@@ -118,14 +129,77 @@ function keyPressed() {
         }
       }
     }
+    if (scene.current === "shop") {
+      if (ash.rangePerson(janine)) {
+        if (janine.talk === 0) {
+          janineHello = new TextBox("Hey! I'm Janine, the owner of this shop.");
+          janineHello.extraLine("");
+          janineHello.show();
+          janine.talk++;
+        } else if (janine.talk === 1) {
+          janineQuest1P1 = new TextBox("You seem good at looking, can you help me");
+          janineQuest1P1.extraLine("out with something?");
+          janineQuest1P1.show();
+          janine.talk++;
+        } else if (janine.talk === 2) {
+          janineQuest1P2 = new TextBox("I'm looking for my ring.");
+          janineQuest1P2.extraLine("");
+          janineQuest1P2.show();
+          janine.talk++;
+        } else if (janine.talk === 3) {
+          janineQuest1P3 = new TextBox("I was looking at flowers earlier and now my")
+          janineQuest1P3.extraLine("ring is gone.");
+          janineQuest1P3.show();
+          janine.talk++;
+        } else if (janine.talk === 4) {
+          janineQuest1P4 = new TextBox("Can you find it for me?");
+          janineQuest1P4.extraLine("");
+          janineQuest1P4.show();
+          janineSearch = true;
+          janine.talk++;
+        } else if (janine.talk === 5) {
+          scene.shop();
+          ash.makeRight();
+          janine.talk++;
+        } else if (janine.talk === 6) {
+          janineQuest1Complete = new TextBox("Wow! You found my ring! Thank you so");
+          janineQuest1Complete.extraLine("much!");
+          janineQuest1Complete.show();
+          janine.talk++;
+        } else if (janine.talk === 7) {
+          janineGiveMap = new TextBox("Since you found my ring, I want to give you")
+          janineGiveMap.extraLine("this.");
+          janineGiveMap.show();
+          janine.talk++;
+        } else if (janine.talk === 8) {
+          mapAquired = new TextBox("You got a map!");
+          mapAquired.extraLine("");
+          mapAquired.show();
+          ash.map = true;
+          janine.talk++;
+        } else if (janine.talk === 9) {
+          janineMap = new TextBox("It's a map so that you can travel to new");
+          janineMap.extraLine("places.");
+          janineMap.show();
+          janine.talk++;
+        } else if (janine.talk === 10) {
+          scene.shop();
+          ash.makeRight();
+          janine.talk++;
+        }
+      }
+    }
   }
 }
 
 // I used my side scroller to help me figure out how to make scene changes work
-function mousePressed() {
+function mouseClicked() {
   if (start.canClick && scene.current === "start") {
     scene.village();
     ash.makeRight();
+  }
+  if (hasMap.canClick && ash.map) {
+    
   }
 }
 
@@ -152,6 +226,11 @@ function draw() {
       ash.y = 10;
       ash.makeRight();
     }
+    if (ash.rangeEdgeRight(600, 50)) {
+      scene.shop();
+      ash.x = 20;
+      ash.makeRight();
+    }
   }
 
   if (scene.current === "fields") {
@@ -171,6 +250,27 @@ function draw() {
     if (ash.rangeEdgeTop(50, 0)) {
       scene.village();
       ash.y = 530;
+      ash.makeRight();
+    }
+  }
+
+  if (scene.current === "shop") {
+    if (keyIsDown(UP_ARROW)) {
+      scene.shop();
+      ash.up();
+    } else if (keyIsDown(DOWN_ARROW)) {
+      scene.shop();
+      ash.down();
+    } else if (keyIsDown(LEFT_ARROW)) {
+      scene.shop();
+      ash.left();
+    } else if (keyIsDown(RIGHT_ARROW)) {
+      scene.shop();
+      ash.right();
+    }
+    if (ash.rangeEdgeLeft(0, 50)) {
+      scene.village();
+      ash.x = 530;
       ash.makeRight();
     }
   }
