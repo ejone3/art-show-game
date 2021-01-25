@@ -204,6 +204,75 @@ class Scenes {
     janine.makeRight();
   }
   
+  miniHouse(x, y) {
+    stroke(0);
+    strokeWeight(2);
+    fill(92, 91, 89);
+    rect(x, y, this.pxl, this.pxl);
+    fill (156, 139, 73);
+    triangle(x, y, x + this.pxl, y, x + this.pxl/2, y - this.pxl/2);
+  }
+  
+  // this draws a map
+  map() {
+    // this sets the current scene to "map"
+    this.current = "map";
+    
+    // this draws the map background
+    background(224, 213, 166);
+    
+    // this draws the icon that serves as the village
+    this.miniHouse(100, 100);
+    this.miniHouse(160, 115);
+    this.miniHouse(130, 140);
+    fill(0);
+    textAlign(CENTER);
+    textSize(20);
+    noStroke();
+    text("Village", 155, 215);
+    
+    // this draws the icon that seves as the caves
+    // I got help from Mr. Osudar and Sebastian Widecki to figure out how to make the arcs into semi circles
+    angleMode(DEGREES);
+    noStroke();
+    fill(94, 94, 92);
+    arc(500, 300, 100, 100, 180, 0);
+    fill(0);
+    arc(500, 300, 70, 70, 180, 0);
+    textAlign(CENTER);
+    textSize(20);
+    text("Mines", 500, 330);
+  }
+  
+  // draws a ruby
+  ruby(x, y) {
+    noStroke();
+    fill(77, 75, 75);
+    ellipse(x + 35/2, y + 17, 40, 20);
+    stroke(204, 36, 20);
+    strokeWeight(2);
+    fill(255, 45, 45);
+    rect(x + 20, y - 20, 10, 25, 2);
+    rect(x, y, 35, 10, 2);
+  }
+  
+  // this draws the mines
+  mines() {
+    // this sets the current scene to "mines"
+    this.current = "mines";
+    
+    //this draws the background
+    background(140, 140, 137);
+    
+    // this draws a ruby or not
+    if (!ruby) {
+      this.ruby(470, 400);
+    } else {
+      return false
+    }
+    
+  }
+  
   // this draws a win screen
   win() {
     background(142, 245, 175);
