@@ -5,12 +5,16 @@ var shovel = false;
 var janineSearch = false;
 var ring = false;
 var robinQuests = false;
+var ruby = false;
+var inMap = 0;
 
 function setup() {
   createCanvas(600, 600);
   scene = new Scenes();
   start = new Button(250, 200, 100, 50, "Click to start", color(192, 250, 217));
   hasMap = new Button(10, 10, 50, 50, "MAP", color(241, 255, 171));
+  village = new Button(80, 55, 230, 245, "", color(224, 213, 166));
+  mine = new Button(430, 230, 140, 130, "", color(224, 213, 166));
   ash = new Person();
   robin = new Person(350, 310, color(0), color(7, 112, 65), color(255, 218, 166), color(102, 30, 45), color(49, 56, 110));
   janine = new Person(510, 30, color(140, 214, 101), color(86, 116, 199), color(245, 230, 171), color(102, 79, 125), color(44, 54, 26));
@@ -103,6 +107,41 @@ function keyPressed() {
           scene.village();
           ash.makeRight();
           robin.talk++;
+        } else if (robin.talk === 17) {
+          robinQuest3P1 = new TextBox("You've really been helping me out in this")
+          robinQuest3P1.extraLine("past little bit.");
+          robinQuest3P1.show();
+          robin.talk++;
+        } else if (robin.talk === 18) {
+          robinQuest3P2 = new TextBox("I have one more favor to ask of you.");
+          robinQuest3P2.extraLine("");
+          robinQuest3P2.show();
+          robin.talk++;
+        } else if (robin.talk === 19) {
+          robinQuest3P3 = new TextBox("Can you get me a ruby from the mines?");
+          robinQuest3P3.extraLine("");
+          robinQuest3P3.show();
+          robin.talk++;
+        } else if (robin.talk === 20) {
+          robinQuest3P4 = new TextBox("You'll need a map to get there. I think Janine");
+          robinQuest3P4.extraLine("has one.");
+          robinQuest3P4.show();
+          robin.talk++;
+        } else if (robin.talk === 21) {
+          scene.village();
+          ash.makeRight();
+          robin.talk++;
+        } else if (robin.talk === 22 && ruby) {
+          robinQuest3CompleteP1 = new TextBox("Amazing!! Thank you so much!!");
+          robinQuest3CompleteP1.extraLine("");
+          robinQuest3CompleteP1.show();
+          robin.talk++;
+        } else if (robin.talk === 23) {
+          robinQuest3CompleteP2 = new TextBox("You've given me all the help I need! Thanks");
+          robinQuest3CompleteP2.extraLine("again!");
+          robinQuest3CompleteP2.show();
+          robin.talk++;
+        } else if (robin.talk === 24) {
           robinQuests = true;
         }
       }
@@ -189,17 +228,45 @@ function keyPressed() {
         }
       }
     }
+    if (scene.current === "mines") {
+      if (ash.rangeObject(465, 510, 375, 432)) {
+        ruby = true;
+        scene.mines();
+        ash.makeRight();
+      }
+    }
   }
 }
 
 // I used my side scroller to help me figure out how to make scene changes work
-function mouseClicked() {
-  if (start.canClick && scene.current === "start") {
-    scene.village();
-    ash.makeRight();
+function mouseReleased() {
+  if (scene.current === "start") {
+    if (start.canClick) {
+      scene.village();
+      ash.makeRight();
+    }
   }
-  if (hasMap.canClick && ash.map) {
-    
+  if (hasMap.canClick && ash.map && inMap === 0) {
+    scene.map();
+  }
+  if (scene.current === "map") {
+    if (inMap === 1) {
+      if (village.canClick) {
+        inMap = 0;
+        scene.village();
+        ash.x = 90;
+        ash.y = 100;
+        ash.makeRight();
+      } else if (mine.canClick) {
+        inMap = 0;
+        scene.mines();
+        ash.x = 90;
+        ash.y = 500;
+        ash.makeRight();
+      }
+    } else {
+      inMap++;
+    }
   }
 }
 
@@ -272,6 +339,22 @@ function draw() {
       scene.village();
       ash.x = 530;
       ash.makeRight();
+    }
+  }
+
+  if (scene.current === "mines") {
+    if (keyIsDown(UP_ARROW)) {
+      scene.mines();
+      ash.up();
+    } else if (keyIsDown(DOWN_ARROW)) {
+      scene.mines();
+      ash.down();
+    } else if (keyIsDown(LEFT_ARROW)) {
+      scene.mines();
+      ash.left();
+    } else if (keyIsDown(RIGHT_ARROW)) {
+      scene.mines();
+      ash.right();
     }
   }
 
