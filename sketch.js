@@ -1,4 +1,4 @@
-// I looked at the code from my side scroller (which means I also looked at any other code that might have come from other sources but were still in the side scroller) to help me with things like how to make classes and include files in the html. I also used an rgb colour picker (just the one that pops up if you google "rgb color picker") for picking out colours. I also searched up "pixel people" in google and just looked at the trends to get an idea of how to make my people. https://techcrunch.com/2013/05/13/pixel-people-hits-700k-in-three-months-after-distributing-with-chillingo/ The picture at the top of that page and the blue business suit person on this page, https://pixelpeople.fandom.com/wiki/Lawyer are the two that I really looked at plus this person with the sash here, https://pixelpeople.fandom.com/wiki/Professions, but like I said, just the general search helped me figure it out. I also used the p5 js web editor's reference sheet.
+// I looked at the code from my side scroller (which means I also looked at any other code that might have come from other sources but were still in the side scroller) to help me with things like how to make classes and subclasses and include files in the html. I also used an rgb colour picker (just the one that pops up if you google "rgb color picker") for picking out colours. I also searched up "pixel people" in google and just looked at the trends to get an idea of how to make my people. https://techcrunch.com/2013/05/13/pixel-people-hits-700k-in-three-months-after-distributing-with-chillingo/ The picture at the top of that page and the blue business suit person on this page, https://pixelpeople.fandom.com/wiki/Lawyer are the two that I really looked at plus this person with the sash here, https://pixelpeople.fandom.com/wiki/Professions, but like I said, just the general search helped me figure it out. I also used the p5 js web editor's reference sheet.
 
 var flower = false;
 var shovel = false;
@@ -6,18 +6,17 @@ var janineSearch = false;
 var ring = false;
 var robinQuests = false;
 var ruby = false;
-var inMap = 0;
 
 function setup() {
   createCanvas(600, 600);
   scene = new Scenes();
   start = new Button(250, 200, 100, 50, "Click to start", color(192, 250, 217));
   hasMap = new Button(10, 10, 50, 50, "MAP", color(241, 255, 171));
-  village = new Button(80, 55, 230, 245, "", color(224, 213, 166));
-  mine = new Button(430, 230, 140, 130, "", color(224, 213, 166));
   ash = new Person();
   robin = new Person(350, 310, color(0), color(7, 112, 65), color(255, 218, 166), color(102, 30, 45), color(49, 56, 110));
   janine = new Person(510, 30, color(140, 214, 101), color(86, 116, 199), color(245, 230, 171), color(102, 79, 125), color(44, 54, 26));
+  mapExplanation = new TextBox("To use the map, just type the first letter of");
+  mapExplanation.extraLine("the place you want to go to.");
 }
 
 function keyPressed() {
@@ -150,12 +149,12 @@ function keyPressed() {
       if (ash.rangeObject(100, 300, 450, 550)) {
         if (janineSearch && !ring) {
           ring = true;
-          ringAquired = new TextBox("You found Janine's ring!");
+          ringAquired = new CollectionBox("You found Janine's ring!");
           ringAquired.extraLine("");
           ringAquired.show();
         } else {
           flower = true;
-          flowerAquired = new TextBox("You picked a flower");
+          flowerAquired = new CollectionBox("You picked a flower");
           flowerAquired.extraLine("");
           flowerAquired.show();
         }
@@ -200,7 +199,7 @@ function keyPressed() {
           scene.shop();
           ash.makeRight();
           janine.talk++;
-        } else if (janine.talk === 6) {
+        } else if (janine.talk === 6 && ring) {
           janineQuest1Complete = new TextBox("Wow! You found my ring! Thank you so");
           janineQuest1Complete.extraLine("much!");
           janineQuest1Complete.show();
@@ -211,7 +210,7 @@ function keyPressed() {
           janineGiveMap.show();
           janine.talk++;
         } else if (janine.talk === 8) {
-          mapAquired = new TextBox("You got a map!");
+          mapAquired = new CollectionBox("You got a map!");
           mapAquired.extraLine("");
           mapAquired.show();
           ash.map = true;
@@ -233,7 +232,27 @@ function keyPressed() {
         ruby = true;
         scene.mines();
         ash.makeRight();
+        rubyAquired = new CollectionBox("You got a ruby");
+        rubyAquired.extraLine("");
+        rubyAquired.show();
       }
+    }
+  }
+  if (scene.current === "map") {
+    if (key === "v") {
+      scene.village();
+      ash.x = 90;
+      ash.y = 100;
+      ash.makeRight();
+    }
+    if (key === "m") {
+      scene.mines();
+      ash.x = 90;
+      ash.y = 500;
+      ash.makeRight();
+    }
+    if (key === " ") {
+      scene.map();
     }
   }
 }
@@ -246,27 +265,9 @@ function mouseReleased() {
       ash.makeRight();
     }
   }
-  if (hasMap.canClick && ash.map && inMap === 0) {
+  if (hasMap.canClick && ash.map) {
     scene.map();
-  }
-  if (scene.current === "map") {
-    if (inMap === 1) {
-      if (village.canClick) {
-        inMap = 0;
-        scene.village();
-        ash.x = 90;
-        ash.y = 100;
-        ash.makeRight();
-      } else if (mine.canClick) {
-        inMap = 0;
-        scene.mines();
-        ash.x = 90;
-        ash.y = 500;
-        ash.makeRight();
-      }
-    } else {
-      inMap++;
-    }
+    mapExplanation.show();
   }
 }
 

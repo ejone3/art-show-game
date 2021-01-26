@@ -220,7 +220,7 @@ class Scenes {
     
     // this draws the map background
     background(224, 213, 166);
-    
+
     // this draws the icon that serves as the village
     this.miniHouse(100, 100);
     this.miniHouse(160, 115);
@@ -275,7 +275,13 @@ class Scenes {
   
   // this draws a win screen
   win() {
+    // this sets the current scene to "win"
+    this.current = "win";
+    
+    // this draws the background
     background(142, 245, 175);
+    
+    // this writes all the messages
     textAlign(CENTER);
     textSize(30);
     fill(255);
@@ -286,6 +292,8 @@ class Scenes {
     text("They told me to tell you that you're welcome back anytime!!", width / 2, 340);
     text("Also, Ash was worried about doing this alone. So they were really happy when you came to help.", width / 2, 450);
     text("Thank you for joining Ash in their adventure!!", width / 2, 470);
+    
+    // this draws all the people
     ash.x = 275;
     ash.y = 150;
     ash.makeRight();
