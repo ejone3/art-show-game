@@ -73,8 +73,8 @@ class Person {
     rect(this.x + this.pxl * 3.5, this.y + this.pxl * 1.5, this.pxl/2, this. pxl);
     rect(this.x + this.pxl * 4.3, this.y + this.pxl * 1.5, this.pxl/2, this. pxl);
     
-    // draws the map button if Ash has the map
-    if (this.map) {
+    // draws the map button if Ash has the map and the current scene is not the win screen
+    if (this.map && scene.current !== "win") {
       hasMap.show();
     }
   }
