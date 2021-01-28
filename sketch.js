@@ -344,6 +344,18 @@ function draw() {
   }
 
   if (scene.current === "mines") {
+    if (ash.rangeEdgeTop(0, 0)) {
+      ash.y = 10;
+    }
+    if (ash.rangeEdgeLeft(30, 50)) {
+      ash.x = 0;
+    }
+    if (ash.rangeEdgeRight(600, 0)) {
+      ash.x = 550;
+    }
+    if (ash.rangeEdgeBottom(0, 600)) {
+      ash.y = 500;
+    }
     if (keyIsDown(UP_ARROW)) {
       scene.mines();
       ash.up();
